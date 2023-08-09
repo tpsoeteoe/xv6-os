@@ -1,5 +1,21 @@
-#lab1
+#Lab1:util
 
-##user/primes.c
+##user/sleep.c 2023.8.7
+  ++ obtain command-line arguments.
+  ++ atoi(const char*) function's use: Eg. convert a string "12" to an integer 12.
+  ++ first syscall "sleep"'s use.
+
+##user/pingpong.c  2023.8.8
+  ++ pipe's use.
+  ++ familiar with system calls:
+     1. int fork(void);
+     2. int write(int, const void*, int);
+     3. int read(int, void*, int);
+     4. pipe(int*);
+     5. getpid(void);
+  ++ pipe's file descriptor close needs be careful.
+
+##user/primes.c 2023.8.9
 	++ wait((int *) 0);	
 	++ 4h
+
