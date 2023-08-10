@@ -19,3 +19,9 @@
 	++ wait((int *) 0);	
 	++ 4h
 
+##user/find.c 2023.8.10
+	++ memmove(char *dst, char *src, uint n); very elegant code
+	++ path name's concatenate need know more.
+	++ 3h
+	++ GPT is helpful.
+	++ recursion is nice.
