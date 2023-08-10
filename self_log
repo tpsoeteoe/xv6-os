@@ -25,3 +25,10 @@
 	++ 3h
 	++ GPT is helpful.
 	++ recursion is nice.
+
+##user/xargs.c 2023.8.10
+	++ simple xargs implication.
+	++ GPT helpful.
+	++ 2h.
+	++ exec and fork.
+	++ code style matters.
