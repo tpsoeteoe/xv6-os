@@ -1,0 +1,18 @@
+#Looking at the backtrace output, which function called syscall?
+	> usertrap() in kernel/trap.c
+
+#What is the value of p->trapframe->a7 and what does that value represent?
+	> a7 = 7; syscall: exec.
+
+#What was the previous mode that the CPU was in?
+	> #sstatus=0x22 => SPP=0 (user mode) [but start.c => main.c => init()->initcode.S seems in kernel mode]
+
+#Write down the assembly instruction the kernel is panicing at. Which register corresponds to the varialable num?
+	> lw  a3,0(zero); a3
+
+#Why does the kernel crash? 
+	> #scause = 0xd(13) => load page fault. (kernel's zero address not mapped).
+
+#What is the name of the binary that was running when the kernel paniced? What is its process id (pid)?
+	> initcode.S; pid = 1
+
