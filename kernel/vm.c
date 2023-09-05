@@ -437,3 +437,32 @@ copyinstr(pagetable_t pagetable, char *dst, uint64 srcva, uint64 max)
     return -1;
   }
 }
+
+// Print a pagetable.
+// Be called in exec.c.
+static int depth = 0; // Only used in vmprint
+
+void
+vmprint(pagetable_t pagetable)
+{
+  if(depth == 0)
+    printf("page table %p\n", pagetable);
+  
+  for(int i = 0; i < 512; i++){
+    pte_t  pte = pagetable[i];
+    if(pte & PTE_V){
+      for(int j = 0; j <= depth; j++)
+        printf("..");
+      printf("%d: pte %p pa %p\n", i, pte, PTE2PA(pte));
+    }
+
+    if((pte & PTE_V) && (pte & (PTE_R|PTE_W|PTE_X)) == 0){
+      // this PTE points to a lower-level page table.
+      depth++;
+      uint64 child = PTE2PA(pte);
+      vmprint((pagetable_t)child);
+      depth--;
+      // ref --github: relaxcn
+    }
+  }
+}
