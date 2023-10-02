@@ -74,7 +74,28 @@ sys_sleep(void)
 int
 sys_pgaccess(void)
 {
-  // lab pgtbl: your code here.
+  /* COPY from github/relaxcn/... */
+
+  uint64 va;
+  int pagenum; //pagenum <= 64
+  uint64 abits_addr;
+  argaddr(0, &va);
+  argint(1, &pagenum);
+  argaddr(2, &abits_addr);
+
+  uint64 bitmask = 0;
+  struct proc *proc = myproc();
+  for(int i = 0; i < pagenum; i++){
+    pte_t *pte = walk(proc->pagetable, va+i*PGSIZE, 0);
+    if(pte == 0)
+      panic("page doesn't exit.");
+    if(PTE_FLAGS(*pte) & PTE_A)
+      bitmask = bitmask | (1L << i);
+    *pte = ((*pte & PTE_A) ^ *pte) ^ 0; //set PTE_A = 0
+  }
+
+  if(copyout(proc->pagetable, abits_addr, (char *) &bitmask, sizeof(bitmask)) < 0)
+    panic("sys_pgaccess copyout() error.");
   return 0;
 }
 #endif
